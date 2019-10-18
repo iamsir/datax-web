@@ -2,7 +2,14 @@
 基于datax，quartz的web端工具
 
 ##### 说明
- 1、全量抽取：添加任务时，同步时间点为空即可，例子：
+ 1、配置DATAX_HOME环境变量指向阿里的datax目录：
+```
+linux: export DATAX_HOME=/local/sda/datax
+或者
+运行时指定: java  -DDATAX_HOME=/local/sda/datax -jar datax-web-0.0.1-SNAPSHOT.jar
+ 
+```
+ 2、全量抽取：添加任务时，同步时间点为空即可，例子：
  ```json
  {
    "job": {
@@ -58,7 +65,7 @@
  }
 
 ```
- 2、增量抽取：添加任务时，同步时间点填写yyyyMMdd格式，则任务开始时，
+ 3、增量抽取：添加任务时，同步时间点填写yyyyMMdd格式，则任务开始时，
  会抽取yyyyMMdd+1日的数据。如下reader的where所示：
 ```json
 {
