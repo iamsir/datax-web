@@ -1,0 +1,51 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 3
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [{
+      "reader": {
+        "name": "mysqlreader",
+        "parameter": {
+          "username": "root",
+          "password": "******",
+          "column": ["id", "create_time", "update_time", "model", "package_name", "app_version", "points"],
+          "where" : "update_time >= ${create_time} and update_time < ${end_time}",
+          "splitPk": "id",
+          "connection": [{
+            "table": ["app_grade"],
+            "jdbcUrl": ["jdbc:mysql://127.0.0.1:3306/test1"]
+          }]
+        }
+      },
+      "writer": {
+        "name": "mysqlwriter",
+        "parameter": {
+          "writeMode": "replace",
+          "username": "root",
+          "password": "******",
+          "column": [
+            "id", "create_time", "update_time", "model", "package_name", "app_version", "points"
+          ],
+          "session": [
+            "set session sql_mode='ANSI'"
+          ],
+          "connection": [
+            {
+              "jdbcUrl": "jdbc:mysql://127.0.0.1:3306/test1",
+              "table": [
+                "app_grade"
+              ]
+            }
+          ]
+        }
+      }
+    }]
+  }
+}
